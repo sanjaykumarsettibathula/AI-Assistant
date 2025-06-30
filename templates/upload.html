@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Document Upload</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Document Processing</h1>
+
+      <form method="POST" enctype="multipart/form-data">
+        <input
+          type="file"
+          name="file"
+          accept=".pdf,.docx,.txt,.pptx"
+          required
+        />
+        <button type="submit">Upload & Process</button>
+      </form>
+
+      {% if filename %}
+      <div class="results">
+        <h3>Results for {{ filename }}</h3>
+        <div class="extracted-text">
+          <h4>Extracted Text (Preview):</h4>
+          <p>{{ extracted_text }}</p>
+        </div>
+        <div class="summary">
+          <h4>AI Summary:</h4>
+          <p>{{ summary }}</p>
+        </div>
+      </div>
+      {% endif %}
+
+      <a href="/" class="back-link">← Back to Chat</a>
+    </div>
+  </body>
+</html>

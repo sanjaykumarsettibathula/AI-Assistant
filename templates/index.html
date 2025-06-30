@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google AI Assistant</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Google AI Assistant (Gemini 2.0-Flash)</h1>
+
+      <!-- Conversation History -->
+      <div class="conversation">
+        {% for msg in conversation %}
+        <div
+          class="message {% if loop.index % 2 == 1 %}user{% else %}ai{% endif %}"
+        >
+          {{ msg }}
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Input Form -->
+      <form method="POST" class="input-form">
+        <select name="task_type">
+          <option value="answer">Ask a Question</option>
+          <option value="summarize">Summarize Text</option>
+          <option value="generate">Generate Content</option>
+          <option value="upload">Upload File</option>
+        </select>
+        <textarea
+          name="user_input"
+          placeholder="Type your message..."
+          required
+        ></textarea>
+        <button type="submit">Send</button>
+      </form>
+
+      <!-- Response Area -->
+      {% if response %}
+      <div class="response">
+        <h3>AI Response:</h3>
+        <p>{{ response }}</p>
+        <div class="feedback">
+          <p>Was this helpful?</p>
+          <button
+            onclick="sendFeedback('{{ user_input|tojson }}', '{{ response|tojson }}', true)"
+          >
+            👍 Yes
+          </button>
+          <button
+            onclick="sendFeedback('{{ user_input|tojson }}', '{{ response|tojson }}', false)"
+          >
+            👎 No
+          </button>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <script>
+      function sendFeedback(query, response, helpful) {
+        // Ensure values are strings (handle undefined cases)
+        query = query || "";
+        response = response || "";
+
+        fetch("/feedback", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: query,
+            response: response,
+            helpful: helpful,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log("Feedback recorded:", data));
+      }
+    </script>
+  </body>
+</html>
