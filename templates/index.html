@@ -7,32 +7,30 @@
     <link rel="stylesheet" href="/static/style.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="app-container">
       <header>
         <h1>AI Assistant</h1>
-        <div class="tabs">
-          <button class="active" data-tab="chat">Chat</button>
-          <button data-tab="upload">Upload</button>
-        </div>
+        <p class="subtitle">Powered by Gemini 1.5 Flash</p>
       </header>
 
       <main>
-        <div class="tab-content active" id="chat">
-          <div class="conversation" id="conversation"></div>
-          <div class="input-area">
-            <textarea
-              id="message-input"
-              placeholder="Type your message..."
-            ></textarea>
-            <button id="send-button">Send</button>
+        <div class="chat-container">
+          <div class="conversation" id="conversation">
+            <!-- Messages appear here -->
           </div>
-        </div>
 
-        <div class="tab-content" id="upload">
-          <div class="upload-area">
-            <input type="file" id="file-input" accept=".pdf,.docx,.txt" />
-            <button id="upload-button">Process File</button>
-            <div id="file-preview"></div>
+          <div class="input-area">
+            <div class="file-upload">
+              <input type="file" id="file-input" accept=".pdf,.docx,.txt" />
+              <button id="upload-btn">Upload File</button>
+            </div>
+            <div class="text-input">
+              <textarea
+                id="message-input"
+                placeholder="Type your message..."
+              ></textarea>
+              <button id="send-btn">Send</button>
+            </div>
           </div>
         </div>
       </main>

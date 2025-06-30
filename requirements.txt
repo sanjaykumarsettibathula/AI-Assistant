@@ -3,4 +3,6 @@ google-generativeai>=0.3.0
 python-dotenv==1.0.0
 pymupdf==1.23.0
 python-docx==0.8.11
+flask-limiter==3.3.0
+psycopg2-binary==2.9.9
 gunicorn==21.2.0
